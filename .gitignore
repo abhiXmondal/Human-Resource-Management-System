@@ -1,0 +1,20 @@
+# Common ignores for PHP/Node/IDE
+/vendor/
+/node_modules/
+/.env
+.env
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+*.log
+composer.lock
+npm-debug.log
+
+# build outputs
+/dist/
+/build/
+
+# images/uploads (if used)
+/uploads/
+
