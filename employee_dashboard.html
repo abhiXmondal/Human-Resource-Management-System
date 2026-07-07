@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Employee Dashboard — HRMS</title>
+  <link rel="stylesheet" href="employee_dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="container">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+        <span class="brand">HRMS</span>
+      </div>
+
+      <nav class="nav-menu" aria-label="Main">
+        <ul>
+          <li class="active"><a href="#dashboard" data-target="dashboard"><i class="fa-solid fa-gauge" aria-hidden="true"></i> <span>Dashboard</span></a></li>
+          <li><a href="#profile" data-target="profile"><i class="fa-solid fa-user" aria-hidden="true"></i> <span>My Profile</span></a></li>
+          <li><a href="#attendance" data-target="attendance"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> <span>Attendance</span></a></li>
+          <li><a href="#leave" data-target="leave"><i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i> <span>Leave Requests</span></a></li>
+          <li><a href="#payroll" data-target="payroll"><i class="fa-solid fa-money-check-dollar" aria-hidden="true"></i> <span>Payroll</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" id="logoutBtn"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> <span>Logout</span></button>
+      </div>
+    </aside>
+
+    <main class="main-content" id="main">
+      <header class="header">
+        <div class="welcome-text">
+          <h1 id="welcome">Welcome back, Employee</h1>
+          <p id="date" aria-live="polite"></p>
+        </div>
+        <div class="user-profile-top">
+          <div class="notifications" role="button" tabindex="0" aria-pressed="false" aria-label="Open notifications">
+            <i class="fa-solid fa-bell" aria-hidden="true"></i>
+            <span class="badge" id="notifCount">0</span>
+          </div>
+          <div class="user-info" aria-hidden="false">
+            <img src="https://ui-avatars.com/api/?name=Employee&background=4e73df&color=fff" alt="Profile avatar">
+            <span id="userName">Employee</span>
+          </div>
+        </div>
+      </header>
+
+      <div id="announcer" class="sr-only" aria-live="polite"></div>
+
+      <section id="dashboard" class="section" tabindex="-1">
+        <div class="stats-grid" role="region" aria-label="Key statistics">
+          <div class="stat-card">
+            <div class="stat-icon attendance"><i class="fa-solid fa-clock" aria-hidden="true"></i></div>
+            <div class="stat-details">
+              <h3 id="monthlyAttendance">—</h3>
+              <p>Monthly Attendance</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon leave"><i class="fa-solid fa-calendar-minus" aria-hidden="true"></i></div>
+            <div class="stat-details">
+              <h3 id="remainingLeave">—</h3>
+              <p>Remaining Leave</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon status"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></div>
+            <div class="stat-details">
+              <h3 id="todayStatus">—</h3>
+              <p>Today's Status</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="card attendance-tracker" aria-labelledby="attendance-heading">
+            <div class="card-header">
+              <h2 id="attendance-heading">Attendance Tracking</h2>
+              <div class="controls">
+                <button class="btn btn-primary" id="checkInBtn">Check In</button>
+                <button class="btn btn-outline" id="checkOutBtn">Check Out</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="check-actions" aria-live="polite">
+                <p><strong>Last Action:</strong> <span id="lastAction">No action yet</span></p>
+              </div>
+
+              <table class="data-table" aria-describedby="attendance-table-desc">
+                <caption id="attendance-table-desc">Recent attendance records</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Check In</th>
+                    <th scope="col">Check Out</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceBody">
+                  <!-- rows populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card recent-activity" aria-labelledby="activity-heading">
+            <div class="card-header">
+              <h2 id="activity-heading">Recent Activity</h2>
+            </div>
+            <div class="card-body">
+              <ul class="activity-list" id="activityList">
+                <li class="muted">No recent activity</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="attendance" class="section" hidden tabindex="-1">
+        <div class="card">
+          <div class="card-header">
+            <h2>Attendance Details</h2>
+            <div>
+              <label for="monthSelect" class="visually-hidden">Select month</label>
+              <input id="monthSelect" type="month" value="">
+              <button class="btn btn-secondary" id="filterAttendance">Filter</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Check In</th>
+                  <th>Check Out</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceFull"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="profile" class="section" hidden tabindex="-1">
+        <div class="card">
+          <div class="card-header">
+            <h2>My Profile</h2>
+            <button class="btn btn-secondary" id="editProfile">Edit Profile</button>
+          </div>
+          <div class="card-body profile-layout" id="profileBody">
+            <!-- profile populated by JS -->
+            <p>Loading...</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="leave" class="section" hidden tabindex="-1">
+        <div class="content-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2>Apply for Leave</h2>
+            </div>
+            <div class="card-body">
+              <form id="leaveForm">
+                <div class="form-group">
+                  <label for="leaveType">Leave Type</label>
+                  <select id="leaveType" name="leave_type" required>
+                    <option value="">Select</option>
+                    <option value="Paid">Paid Leave</option>
+                    <option value="Sick">Sick Leave</option>
+                    <option value="Unpaid">Unpaid Leave</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input id="startDate" name="start_date" type="date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input id="endDate" name="end_date" type="date" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="remarks">Remarks</label>
+                  <textarea id="remarks" name="reason" rows="3" placeholder="Reason for leave..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Leave Status</h2>
+            </div>
+            <div class="card-body">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Dates</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="leaveStatusBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="payroll" class="section" hidden tabindex="-1">
+        <div class="card">
+          <div class="card-header">
+            <h2>Payroll & Salary Structure</h2>
+          </div>
+          <div class="card-body">
+            <div class="payroll-summary">
+              <div class="salary-box">
+                <p>Gross Monthly Salary</p>
+                <h3 id="grossSalary">—</h3>
+              </div>
+              <div class="salary-details-grid">
+                <div class="salary-item"><span>Basic Pay:</span> <span id="basicPay">—</span></div>
+                <div class="salary-item"><span>HRA:</span> <span id="hra">—</span></div>
+                <div class="salary-item"><span>Allowances:</span> <span id="allowances">—</span></div>
+                <div class="salary-item total"><span>Net Salary:</span> <span id="netSalary">—</span></div>
+              </div>
+            </div>
+            <div class="document-section">
+              <h4>Recent Payslips</h4>
+              <ul class="doc-list" id="payslipList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+
+  <script src="employee_dashboard.js"></script>
+</body>
+</html>
