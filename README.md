@@ -1,86 +1,70 @@
 # Human Resource Management System (HRMS)
 
-A full-stack Human Resource Management System built using PHP, MySQL, HTML, CSS, JavaScript and Bootstrap. This repository contains a simple, modular HRMS that includes user authentication, employee profiles, attendance tracking, leave management, and payroll overview pages.
+A full-stack Human Resource Management System built using PHP, MySQL, HTML, CSS and JavaScript. This repository contains a modular HRMS with user authentication, profile management, attendance tracking, leave management, and payroll overview pages.
 
-## Project Overview
+## Quick Start / Installation
 
-This project provides a web-based HR management system with two primary user roles: admin and employee. Admins can manage employees, process payroll, and approve leaves. Employees can view their attendance, request leave, and view payroll information.
+These steps will get you a development environment running locally.
 
-Key features:
-- User registration and authentication (signup/login)
-- Role-based access (admin vs employee)
-- Employee profile management
-- Attendance tracking and monthly summaries
-- Leave request submission and approval workflow
-- Payroll overview and salary breakdown UI
-
-
-## Repository Structure
-
-- / (root)
-  - admindashboard.html, admindashboard.css — Admin UI
-  - employee_dashboard.html, employee_dashboard.css, employee_dashboard.js — Employee UI and client-side scripts
-  - login.html, signup.html, privacy.html — Authentication & policy pages
-  - login.js, signup.js — Client-side auth scripts
-  - auth/ (expected) — backend auth endpoints (login.php, signup.php)
-  - api/ (expected) — profile, attendance, leave endpoints
-  - includes/ (expected) — auth middleware (auth_check.php, admin_check.php)
-  - config/ (expected) — db_connection.php
-  - README.md — this file
-
-
-## Installation
-
-1. Clone the repository:
+1. Clone the repository
 
    git clone https://github.com/abhiXmondal/Human-Resource-Management-System.git
    cd Human-Resource-Management-System
 
-2. Configure the database:
-   - Create a MySQL database named `hrms` (or update db_connection.php to match your database name).
-   - Import the SQL schema (not included in this repository). Create the following minimal tables used by the app: `users`, `employee_profile`, `attendance`, `leave_requests`.
+2. Create the database
 
-3. Configure web server:
-   - Place the project in your web server's document root (e.g., XAMPP htdocs or Apache/Nginx configured root).
-   - Ensure PHP (7.4+) and MySQL are available. Adjust DB credentials in `config/db_connection.php`.
+   - Create a MySQL database named `hrms` (or choose another name and update `config/db_connection.php`).
+   - Import the schema:
 
-4. Open the app in your browser:
-   - Visit `/login.html` to log in or `/signup.html` to create an account.
+     mysql -u <db_user> -p hrms < schema/schema.sql
 
+3. Configure database credentials
 
-## Development Notes & Conventions
+   - Edit `config/db_connection.php` with your DB_HOST, DB_USER, DB_PASSWORD and DB_NAME values.
+   - For better security, move credentials to environment variables and modify `db_connection.php` accordingly.
 
-- This repository follows a modular pattern where frontend files are served statically and PHP handles API and server-side logic.
-- Sessions are used for authentication (`auth_check.php`).
-- Passwords are hashed via `password_hash` and verified with `password_verify`.
+4. Create an initial admin user
 
+   - Run the helper script to create an admin account (recommended):
 
-## Security & Next Steps
+     php scripts/create_admin.php
 
-- Add CSRF protection on forms and validate server-side inputs thoroughly.
-- Move DB credentials to environment variables or a protected config file outside web root.
-- Implement email verification and password reset workflows.
-- Add prepared SQL schema and seed data for easier setup.
+   The script will prompt for email, full name, password and employee ID. It will insert the admin user and create an empty profile row.
 
+5. Serve the project
 
-## Technologies
+   - Use a local web server such as XAMPP, MAMP or PHP's built-in server:
 
-- Frontend: HTML5, CSS3, JavaScript, Font Awesome
-- Backend: PHP (MySQLi), MySQL
+     php -S localhost:8000
+
+   - Open your browser at `http://localhost:8000/login.html` to log in.
 
 
-## Future Enhancements
+## Feature Overview
 
-- Role-based dashboards with fine-grained permissions
-- Exportable attendance and payroll reports (CSV/PDF)
-- Notifications and audit logs
-- Unit/integration tests for API endpoints
-
-
-## Screenshots
-
-(Add screenshots of dashboards and pages in this section)
+- User registration and authentication (signup/login)
+- Role-based access (admin vs employee)
+- Employee profile management (view/update)
+- Attendance tracking and monthly summaries
+- Leave request submission and approval workflow
+- Payroll overview and payslips
 
 
----
+## Developer Notes
 
+- API endpoints live under `api/` and auth endpoints under `auth/`.
+- `includes/auth_check.php` and `includes/admin_check.php` protect API routes and pages using PHP sessions.
+- Passwords are hashed with `password_hash` and verified with `password_verify`.
+
+
+## Recommended Next Steps
+
+- Move DB credentials to environment variables and add `.env.example`.
+- Add CSRF protection for POST endpoints.
+- Add automated tests or a Postman collection for manual API verification.
+- Add screenshots and refine the UI; a dark-mode theme is a nice enhancement.
+
+
+## License
+
+Specify your license here (MIT, Apache-2.0, etc.)
