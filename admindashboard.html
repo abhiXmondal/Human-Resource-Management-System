@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - HRMS</title>
+    <link rel="stylesheet" href="admindashboard.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" aria-label="Admin navigation">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                <span>HRMS Admin</span>
+            </div>
+            <nav class="nav-menu" aria-label="Primary">
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fa-solid fa-gauge" aria-hidden="true"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#employees"><i class="fa-solid fa-users" aria-hidden="true"></i> <span>Employee List</span></a></li>
+                    <li><a href="#attendance"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> <span>Attendance Records</span></a></li>
+                    <li><a href="#leave-approvals"><i class="fa-solid fa-envelope-circle-check" aria-hidden="true"></i> <span>Leave Approvals</span></a></li>
+                    <li><a href="#payroll-control"><i class="fa-solid fa-file-invoice-dollar" aria-hidden="true"></i> <span>Payroll Control</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="adminLogout" aria-label="Logout"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> <span>Logout</span></button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main">
+            <!-- Header -->
+            <header class="header" role="banner">
+                <div class="welcome-text">
+                    <h1>HR Administrator Overview</h1>
+                    <p><span id="todayDate">Thursday, July 4, 2026</span> | System Status: <span class="text-success" aria-live="polite">Active</span></p>
+                </div>
+                <div class="user-profile-top">
+                    <div class="search-bar" role="search">
+                        <label for="adminSearch" class="visually-hidden">Search employees</label>
+                        <input id="adminSearch" type="text" placeholder="Search employee...">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    </div>
+                    <div class="user-info">
+                        <img src="https://ui-avatars.com/api/?name=HR+Admin&background=1cc88a&color=fff" alt="Admin Profile">
+                        <span>Admin Officer</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Admin Stats Overview -->
+            <section id="dashboard" class="dashboard-section">
+                <div class="stats-grid" role="region" aria-label="Summary statistics">
+                    <div class="stat-card">
+                        <div class="stat-icon employees"><i class="fa-solid fa-users" aria-hidden="true"></i></div>
+                        <div class="stat-details">
+                            <h3>124</h3>
+                            <p>Total Employees</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pending"><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i></div>
+                        <div class="stat-details">
+                            <h3>8</h3>
+                            <p>Pending Approvals</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon present"><i class="fa-solid fa-user-check" aria-hidden="true"></i></div>
+                        <div class="stat-details">
+                            <h3>112</h3>
+                            <p>Present Today</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon payroll"><i class="fa-solid fa-wallet" aria-hidden="true"></i></div>
+                        <div class="stat-details">
+                            <h3>$45.2k</h3>
+                            <p>Monthly Payroll</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Employee List Quick View -->
+                    <div class="card" role="region" aria-label="Employee management">
+                        <div class="card-header">
+                            <h2>Employee Management</h2>
+                            <button class="btn btn-primary btn-sm" id="addEmployee">+ Add Employee</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table" aria-describedby="employeeTableDesc">
+                                <caption id="employeeTableDesc">Quick employee list</caption>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Employee</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>EMP-001</td>
+                                        <td>Alex Smith</td>
+                                        <td>Sr. Developer</td>
+                                        <td><span class="status-badge present">Active</span></td>
+                                        <td><button class="btn-icon" aria-label="Edit Alex Smith"><i class="fa-solid fa-pen-to-square"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-002</td>
+                                        <td>Sarah Johnson</td>
+                                        <td>Product Manager</td>
+                                        <td><span class="status-badge present">Active</span></td>
+                                        <td><button class="btn-icon" aria-label="Edit Sarah Johnson"><i class="fa-solid fa-pen-to-square"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-003</td>
+                                        <td>Michael Chen</td>
+                                        <td>UI Designer</td>
+                                        <td><span class="status-badge leave">On Leave</span></td>
+                                        <td><button class="btn-icon" aria-label="Edit Michael Chen"><i class="fa-solid fa-pen-to-square"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Recent Leave Requests -->
+                    <div class="card" role="region" aria-label="Pending leave requests">
+                        <div class="card-header">
+                            <h2>Pending Leave Requests</h2>
+                        </div>
+                        <div class="card-body">
+                            <ul class="request-list">
+                                <li class="request-item">
+                                    <div class="req-info">
+                                        <strong>Emily Brown</strong>
+                                        <span>Sick Leave (2 days)</span>
+                                    </div>
+                                    <div class="req-actions">
+                                        <button class="btn-approve" aria-label="Approve Emily Brown"><i class="fa-solid fa-check" aria-hidden="true"></i></button>
+                                        <button class="btn-reject" aria-label="Reject Emily Brown"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                                    </div>
+                                </li>
+                                <li class="request-item">
+                                    <div class="req-info">
+                                        <strong>David Wilson</strong>
+                                        <span>Paid Leave (5 days)</span>
+                                    </div>
+                                    <div class="req-actions">
+                                        <button class="btn-approve" aria-label="Approve David Wilson"><i class="fa-solid fa-check" aria-hidden="true"></i></button>
+                                        <button class="btn-reject" aria-label="Reject David Wilson"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Records Section -->
+            <section id="attendance" class="section-card" hidden>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>All Attendance Records</h2>
+                        <div class="filter-group">
+                            <label for="attendanceDate" class="visually-hidden">Select date</label>
+                            <input id="attendanceDate" type="date" value="2026-07-04">
+                            <button class="btn btn-secondary btn-sm">Filter</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee ID</th>
+                                    <th>Name</th>
+                                    <th>Check In</th>
+                                    <th>Check Out</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EMP-001</td>
+                                    <td>Alex Smith</td>
+                                    <td>09:05 AM</td>
+                                    <td>06:00 PM</td>
+                                    <td><span class="status-badge present">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EMP-002</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>08:55 AM</td>
+                                    <td>05:30 PM</td>
+                                    <td><span class="status-badge present">Present</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EMP-003</td>
+                                    <td>Michael Chen</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td><span class="status-badge leave">Leave</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EMP-004</td>
+                                    <td>Jessica Lee</td>
+                                    <td>09:30 AM</td>
+                                    <td>-</td>
+                                    <td><span class="status-badge pending">Half-day</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leave Approvals Section -->
+            <section id="leave-approvals" class="section-card" hidden>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Leave Approval Workflow</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="approval-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Type</th>
+                                        <th>Range</th>
+                                        <th>Remarks</th>
+                                        <th>Decision</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Emily Brown</td>
+                                        <td>Sick Leave</td>
+                                        <td>July 05 - 06</td>
+                                        <td>Doctor appointment</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-success btn-sm" aria-label="Approve Emily Brown">Approve</button>
+                                                <button class="btn btn-danger btn-sm" aria-label="Reject Emily Brown">Reject</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>David Wilson</td>
+                                        <td>Paid Leave</td>
+                                        <td>Aug 10 - 15</td>
+                                        <td>Family vacation</td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-success btn-sm" aria-label="Approve David Wilson">Approve</button>
+                                                <button class="btn btn-danger btn-sm" aria-label="Reject David Wilson">Reject</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payroll Control Section -->
+            <section id="payroll-control" class="section-card" hidden>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Admin Payroll Control</h2>
+                        <button class="btn btn-primary btn-sm">Process Monthly Payroll</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="payroll-grid">
+                            <div class="payroll-summary-card">
+                                <h4>Total Disbursement</h4>
+                                <p class="amount">$45,200.00</p>
+                                <span>For Month: June 2026</span>
+                            </div>
+                            <div class="payroll-summary-card">
+                                <h4>Pending Taxes</h4>
+                                <p class="amount text-danger">$8,450.00</p>
+                                <span>Due by: July 15</span>
+                            </div>
+                        </div>
+                        <h3 class="mt-4">Employee Salary Structures</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Base Salary</th>
+                                    <th>Allowances</th>
+                                    <th>Deductions</th>
+                                    <th>Net Payable</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alex Smith</td>
+                                    <td>$5,000</td>
+                                    <td>$3,500</td>
+                                    <td>$700</td>
+                                    <td>$7,800</td>
+                                    <td><button class="btn-icon" aria-label="Settings Alex Smith"><i class="fa-solid fa-gear" aria-hidden="true"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>Sarah Johnson</td>
+                                    <td>$6,000</td>
+                                    <td>$2,500</td>
+                                    <td>$800</td>
+                                    <td>$7,700</td>
+                                    <td><button class="btn-icon" aria-label="Settings Sarah Johnson"><i class="fa-solid fa-gear" aria-hidden="true"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Minimal client-side to toggle sections and wire logout button
+        (function(){
+            const menuLinks = document.querySelectorAll('.nav-menu a');
+            const sections = document.querySelectorAll('main section');
+
+            function showSection(id){
+                sections.forEach(s=>{
+                    s.id === id ? s.removeAttribute('hidden') : s.setAttribute('hidden','');
+                });
+            }
+
+            menuLinks.forEach(link=>{
+                link.addEventListener('click', (e)=>{
+                    e.preventDefault();
+                    const hash = link.getAttribute('href').substring(1);
+                    // Highlight
+                    menuLinks.forEach(l=> l.parentElement.classList.toggle('active', l===link));
+                    showSection(hash);
+                });
+            });
+
+            // show dashboard default
+            showSection('dashboard');
+
+            const logout = document.getElementById('adminLogout');
+            if(logout){
+                logout.addEventListener('click', function(){
+                    fetch('auth/logout.php', { credentials: 'same-origin' }).finally(()=> window.location.href='login.html');
+                });
+            }
+
+        })();
+    </script>
+</body>
+</html>
