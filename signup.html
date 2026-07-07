@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Corporate Portal</title>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #1e40af;
+            --light-blue: #eff6ff;
+            --border-color: #d1d5db;
+            --text-dark: #1f2937;
+            --text-gray: #4b5563;
+            --success-green: #10b981;
+            --error-red: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-blue);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .password-rules {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-gray);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+
+        .rule {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rule.valid {
+            color: var(--success-green);
+        }
+
+        .rule.invalid {
+            color: var(--error-red);
+        }
+
+        .btn-signup {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-signup:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        .verification-overlay {
+            display: none;
+            text-align: center;
+        }
+
+        .verification-overlay.active {
+            display: block;
+        }
+
+        .verification-overlay h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .verification-icon {
+            font-size: 50px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        #signup-form.hidden {
+            display: none;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .footer-text a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <!-- Signup Form -->
+        <form id="signup-form">
+            <div class="header">
+                <h1>Create Account</h1>
+                <p>Please fill in the details to register</p>
+            </div>
+
+            <div class="form-group">
+                <label for="employee-id">Employee ID</label>
+                <input type="text" id="employee-id" name="employee_id" placeholder="e.g. EMP12345" required>
+            </div>
+
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full_name" placeholder="e.g. John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Work Email</label>
+                <input type="email" id="email" name="email" placeholder="name@company.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <div class="password-rules" id="password-rules">
+                    <div class="rule" id="rule-length">○ 8+ characters</div>
+                    <div class="rule" id="rule-upper">○ One uppercase</div>
+                    <div class="rule" id="rule-number">○ One number</div>
+                    <div class="rule" id="rule-special">○ One special char</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="employee">Employee</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-signup" id="submit-btn">Sign Up</button>
+
+            <p class="footer-text">Already have an account? <a href="login.html">Log In</a></p>
+        </form>
+
+        <!-- Verification UI -->
+        <div id="verification-ui" class="verification-overlay">
+            <div class="verification-icon">✉️</div>
+            <h2>Verify Your Email</h2>
+            <p>We've sent a verification link to <strong id="display-email"></strong>.</p>
+            <p style="margin-top: 15px; font-size: 14px; color: var(--text-gray);">Please check your inbox and click the link to activate your account.</p>
+            <button class="btn-signup" style="margin-top: 25px;" onclick="window.location.href='login.html'">Go to Login</button>
+        </div>
+    </div>
+
+    <script src="signup.js"></script>
+</body>
+</html>
